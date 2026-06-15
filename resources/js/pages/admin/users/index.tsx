@@ -2,6 +2,7 @@ import { Head, Link } from '@inertiajs/react';
 import { Pencil } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/shared/data-table';
+import type { Column } from '@/components/shared/data-table';
 import { StatusBadge } from '@/components/shared/status-badge';
 import type { User } from '@/types/auth';
 import { index, create } from '@/routes/admin/users';
@@ -18,7 +19,7 @@ interface PaginatedUsers {
 }
 
 export default function UsersIndex({ users, filters }: { users: PaginatedUsers; filters: { search?: string; role?: string } }) {
-    const columns = [
+    const columns: Column[] = [
         {
             key: 'name',
             label: 'Name',
@@ -53,13 +54,13 @@ export default function UsersIndex({ users, filters }: { users: PaginatedUsers; 
             className: 'w-12',
             render: (user: User) => (
                 <Button variant="ghost" size="icon" asChild>
-                    <Link href={index.url({ user: user.id })}>
+                    <Link href={`/admin/users/${user.id}/edit`}>
                         <Pencil className="h-4 w-4" />
                     </Link>
                 </Button>
             ),
         },
-    ] as const;
+    ];
 
     return (
         <>

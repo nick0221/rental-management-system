@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/shared/data-table';
 import { StatusBadge } from '@/components/shared/status-badge';
 import type { MaintenanceRequest } from '@/types/maintenance';
-import { index } from '@/routes/owner/maintenance/index';
 
 interface PaginatedData {
     data: MaintenanceRequest[];
@@ -18,7 +17,7 @@ export default function MaintenanceIndex({ requests, filters }: { requests: Pagi
             label: 'Request',
             render: (r: MaintenanceRequest) => (
                 <div>
-                    <Link href={index.url({ maintenanceRequest: r.id })} className="font-medium hover:underline">
+                    <Link href={`/owner/maintenance/${r.id}`} className="font-medium hover:underline">
                         {r.title}
                     </Link>
                     <p className="text-xs text-muted-foreground">{r.property?.name} · {r.unit?.name}</p>
@@ -53,13 +52,13 @@ export default function MaintenanceIndex({ requests, filters }: { requests: Pagi
             className: 'w-12',
             render: (r: MaintenanceRequest) => (
                 <Button variant="ghost" size="icon" asChild>
-                    <Link href={index.url({ maintenanceRequest: r.id })}>
+                    <Link href={`/owner/maintenance/${r.id}`}>
                         <Eye className="h-4 w-4" />
                     </Link>
                 </Button>
             ),
         },
-    ] as const;
+    ];
 
     return (
         <>

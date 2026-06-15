@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/shared/data-table';
 import { StatusBadge } from '@/components/shared/status-badge';
 import type { MaintenanceRequest } from '@/types/maintenance';
-import { index, create } from '@/routes/renter/maintenance/index';
+import { index, create } from '@/routes/renter/maintenance';
 
 interface PaginatedRequests {
     data: MaintenanceRequest[];
@@ -18,7 +18,7 @@ export default function MaintenanceIndex({ requests }: { requests: PaginatedRequ
             label: 'Request',
             sortable: true,
             render: (r: MaintenanceRequest) => (
-                <Link href={index.url({ maintenanceRequest: r.id })} className="font-medium hover:underline">
+                <Link href={`/maintenance/${r.id}`} className="font-medium hover:underline">
                     {r.title}
                 </Link>
             ),
@@ -45,7 +45,7 @@ export default function MaintenanceIndex({ requests }: { requests: PaginatedRequ
             hideOnMobile: true,
             render: (r: MaintenanceRequest) => r.scheduled_at ? new Date(r.scheduled_at).toLocaleDateString() : '—',
         },
-    ] as const;
+    ];
 
     return (
         <>

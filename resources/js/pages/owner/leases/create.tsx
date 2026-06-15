@@ -7,16 +7,19 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { PageHeader } from '@/components/shared/page-header';
-import { store } from '@/routes/owner/leases/store';
-import { index } from '@/routes/owner/leases/index';
+import { store, index } from '@/routes/owner/leases';
 import type { Property } from '@/types/property';
 import type { Unit } from '@/types/unit';
 
+interface PageProps {
+    properties: (Property & { units: Unit[] })[];
+    renters: { id: number; name: string; email: string }[];
+    [key: string]: unknown;
+}
+
 export default function CreateLease() {
-    const { properties, renters } = usePage().props as {
-        properties: (Property & { units: Unit[] })[];
-        renters: { id: number; name: string; email: string }[];
-    };
+    const page = usePage<PageProps>();
+    const { properties, renters } = page.props;
 
     const [selectedPropertyId, setSelectedPropertyId] = useState<string>('');
     const selectedProperty = properties.find((p) => p.id.toString() === selectedPropertyId);

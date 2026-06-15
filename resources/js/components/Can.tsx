@@ -1,6 +1,6 @@
 import { usePage } from '@inertiajs/react';
 import type { ReactNode } from 'react';
-import type { UserRole } from '@/types/auth';
+// import type { UserRole } from '@/types/auth';
 
 interface CanProps {
     roles?: string[];

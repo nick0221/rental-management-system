@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { PageHeader } from '@/components/shared/page-header';
-import { update, destroy, index } from '@/routes/admin/users';
+import { index } from '@/routes/admin/users';
 import type { User } from '@/types/auth';
 
 export default function EditUser({ user }: { user: User }) {
@@ -26,20 +26,15 @@ export default function EditUser({ user }: { user: User }) {
 
                 <div className="max-w-lg space-y-8">
                     <Form
-                        action={update(user.id)}
+                        action={`/admin/users/${user.id}`}
                         method="patch"
-                        defaults={{
-                            name: user.name,
-                            email: user.email,
-                            role: user.role ?? 'renter',
-                            phone: user.phone ?? '',
-                        }}
+                        resetOnSuccess
                     >
                         {({ errors, processing }) => (
                             <div className="space-y-6">
                                 <div className="space-y-2">
                                     <Label htmlFor="name">Name</Label>
-                                    <Input id="name" name="name" required />
+                                    <Input id="name" name="name" defaultValue={`${user.name}`} required />
                                     {errors.name && (
                                         <p className="text-sm text-destructive">{errors.name}</p>
                                     )}
@@ -47,7 +42,7 @@ export default function EditUser({ user }: { user: User }) {
 
                                 <div className="space-y-2">
                                     <Label htmlFor="email">Email</Label>
-                                    <Input id="email" name="email" type="email" required />
+                                    <Input id="email" name="email" type="email" defaultValue={`${user.email}`} required />
                                     {errors.email && (
                                         <p className="text-sm text-destructive">{errors.email}</p>
                                     )}
@@ -72,7 +67,7 @@ export default function EditUser({ user }: { user: User }) {
 
                                 <div className="space-y-2">
                                     <Label htmlFor="phone">Phone</Label>
-                                    <Input id="phone" name="phone" />
+                                    <Input id="phone" name="phone" defaultValue={`${user.phone ?? ''}`} />
                                 </div>
 
                                 <Button type="submit" disabled={processing}>
@@ -84,7 +79,7 @@ export default function EditUser({ user }: { user: User }) {
 
                     <div className="border-t pt-6">
                         <Form
-                            action={destroy(user.id)}
+                            action={`/admin/users/${user.id}`}
                             method="delete"
                             onSubmit={(e) => {
                                 if (!confirm('Are you sure you want to delete this user? This action cannot be undone.')) {

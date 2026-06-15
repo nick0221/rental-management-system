@@ -3,12 +3,11 @@ import { Building2, DoorOpen, DollarSign, Wrench, UserCheck, AlertTriangle } fro
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CardSummary } from '@/components/shared/card-summary';
-import { StatusBadge } from '@/components/shared/status-badge';
-import { dashboard } from '@/routes/owner/dashboard';
-import { create } from '@/routes/owner/properties/create';
-import { index as propertiesIndex } from '@/routes/owner/properties/index';
-import { index as leasesIndex } from '@/routes/owner/leases/index';
-import { index as maintenanceIndex } from '@/routes/owner/maintenance/index';
+import { dashboard } from '@/routes/owner';
+import { create } from '@/routes/owner/properties';
+import { index as propertiesIndex } from '@/routes/owner/properties';
+import { index as leasesIndex } from '@/routes/owner/leases';
+import { index as maintenanceIndex } from '@/routes/owner/maintenance';
 
 interface DashboardStats {
     totalProperties: number;
@@ -62,7 +61,6 @@ export default function OwnerDashboard({
                 </div>
 
                 <div className="grid gap-6 lg:grid-cols-2">
-                    {/* Quick Actions */}
                     <Card>
                         <CardHeader>
                             <CardTitle>Quick Actions</CardTitle>
@@ -75,12 +73,12 @@ export default function OwnerDashboard({
                                     </Link>
                                 </Button>
                                 <Button variant="outline" asChild>
-                                    <Link href={leasesIndex({ status: 'active' }).url}>
+                                    <Link href={leasesIndex({ query: { status: 'active' } }).url}>
                                         <UserCheck className="mr-2 h-4 w-4" />Active Leases
                                     </Link>
                                 </Button>
                                 <Button variant="outline" asChild>
-                                    <Link href={maintenanceIndex({ status: 'reported' }).url}>
+                                    <Link href={maintenanceIndex({ query: { status: 'reported' } }).url}>
                                         <Wrench className="mr-2 h-4 w-4" />Maintenance
                                     </Link>
                                 </Button>
@@ -88,7 +86,6 @@ export default function OwnerDashboard({
                         </CardContent>
                     </Card>
 
-                    {/* Expiring Leases */}
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
@@ -118,7 +115,6 @@ export default function OwnerDashboard({
                     </Card>
                 </div>
 
-                {/* Revenue Per Property */}
                 <Card className="mt-6">
                     <CardHeader>
                         <CardTitle>Revenue Per Property</CardTitle>
@@ -128,7 +124,7 @@ export default function OwnerDashboard({
                             {revenuePerProperty.map((p) => (
                                 <div key={p.id} className="flex items-center justify-between">
                                     <div>
-                                        <Link href={propertiesIndex.url({ property: p.id })} className="text-sm font-medium hover:underline">
+                                        <Link href={`/owner/properties/${p.id}`} className="text-sm font-medium hover:underline">
                                             {p.name}
                                         </Link>
                                         <p className="text-xs text-muted-foreground">{p.units_count} units · {p.active_leases} leases</p>

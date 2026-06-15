@@ -7,18 +7,18 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { EmptyState } from '@/components/shared/empty-state';
 import { cn } from '@/lib/utils';
 
-interface Column<T> {
+export interface Column {
     key: string;
     label: string;
     sortable?: boolean;
-    render?: (item: T) => ReactNode;
+    render?: (item: any) => any;
     className?: string;
     hideOnMobile?: boolean;
 }
 
-interface DataTableProps<T> {
-    columns: Column<T>[];
-    data: T[];
+interface DataTableProps {
+    columns: Column[];
+    data: any[];
     meta?: {
         current_page: number;
         last_page: number;
@@ -36,7 +36,7 @@ interface DataTableProps<T> {
     loading?: boolean;
 }
 
-export function DataTable<T extends Record<string, unknown>>({
+export function DataTable({
     columns,
     data,
     meta,
@@ -48,7 +48,7 @@ export function DataTable<T extends Record<string, unknown>>({
     emptyTitle = 'No records found',
     emptyDescription = 'Get started by creating a new entry.',
     loading = false,
-}: DataTableProps<T>) {
+}: DataTableProps) {
     const [searchValue, setSearchValue] = useState(search || '');
     const [sortField, setSortField] = useState<string | null>(null);
     const [sortDir, setSortDir] = useState<'asc' | 'desc'>('asc');
@@ -149,7 +149,7 @@ export function DataTable<T extends Record<string, unknown>>({
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {data.map((item, index) => (
+                            {data.map((item: any, index: number) => (
                                 <TableRow key={(item.id as number) || index}>
                                     {columns.map((col) => (
                                         <TableCell

@@ -8,7 +8,6 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { StatusBadge } from '@/components/shared/status-badge';
 import type { MaintenanceRequest } from '@/types/maintenance';
-import { show, update } from '@/routes/owner/maintenance/show';
 
 export default function ShowMaintenance({ request }: { request: MaintenanceRequest }) {
     return (
@@ -69,14 +68,8 @@ export default function ShowMaintenance({ request }: { request: MaintenanceReque
                         <CardHeader><CardTitle>Update Status</CardTitle></CardHeader>
                         <CardContent>
                             <Form
-                                action={update(request.id)}
+                                action={`/owner/maintenance/${request.id}`}
                                 method="patch"
-                                defaults={{
-                                    status: request.status,
-                                    assignee_id: request.assignee_id?.toString() ?? '',
-                                    scheduled_at: request.scheduled_at ? new Date(request.scheduled_at).toISOString().split('T')[0] : '',
-                                    cost: request.cost?.toString() ?? '',
-                                }}
                             >
                                 {({ errors, processing }) => (
                                     <div className="space-y-4">

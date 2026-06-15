@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/shared/data-table';
 import { StatusBadge } from '@/components/shared/status-badge';
 import type { Property } from '@/types/property';
-import { index, create } from '@/routes/owner/properties/index';
+import { create } from '@/routes/owner/properties';
 
 interface PaginatedData {
     data: Property[];
@@ -19,7 +19,7 @@ export default function PropertiesIndex({ properties, filters }: { properties: P
             sortable: true,
             render: (p: Property) => (
                 <div>
-                    <Link href={index.url({ property: p.id })} className="font-medium hover:underline">
+                    <Link href={`/owner/properties/${p.id}`} className="font-medium hover:underline">
                         {p.name}
                     </Link>
                     <p className="text-xs text-muted-foreground">{p.city}, {p.state}</p>
@@ -56,7 +56,7 @@ export default function PropertiesIndex({ properties, filters }: { properties: P
             render: (p: Property) => (
                 <div className="flex gap-1">
                     <Button variant="ghost" size="icon" asChild>
-                        <Link href={index.url({ property: p.id })}>
+                        <Link href={`/owner/properties/${p.id}`}>
                             <Eye className="h-4 w-4" />
                         </Link>
                     </Button>
@@ -68,7 +68,7 @@ export default function PropertiesIndex({ properties, filters }: { properties: P
                 </div>
             ),
         },
-    ] as const;
+    ];
 
     return (
         <>

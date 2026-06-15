@@ -26,58 +26,47 @@ export default function EditUnit({ unit }: { unit: Unit & { property: { id: numb
                     <Form
                         action={`/owner/units/${unit.id}`}
                         method="patch"
-                        defaults={{
-                            name: unit.name,
-                            unit_number: unit.unit_number ?? '',
-                            floor: unit.floor?.toString() ?? '',
-                            bedrooms: unit.bedrooms.toString(),
-                            bathrooms: unit.bathrooms.toString(),
-                            square_feet: unit.square_feet?.toString() ?? '',
-                            rent_amount: unit.rent_amount.toString(),
-                            security_deposit: unit.security_deposit?.toString() ?? '',
-                            status: unit.status,
-                        }}
                     >
                         {({ errors, processing }) => (
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="space-y-2 col-span-2">
                                     <Label htmlFor="name">Unit Name</Label>
-                                    <Input id="name" name="name" required />
+                                    <Input id="name" name="name" defaultValue={unit.name} required />
                                 </div>
 
                                 <div className="space-y-2">
                                     <Label htmlFor="unit_number">Unit Number</Label>
-                                    <Input id="unit_number" name="unit_number" />
+                                    <Input id="unit_number" name="unit_number" defaultValue={unit.unit_number ?? ''} />
                                 </div>
 
                                 <div className="space-y-2">
                                     <Label htmlFor="floor">Floor</Label>
-                                    <Input id="floor" name="floor" type="number" />
+                                    <Input id="floor" name="floor" type="number" defaultValue={unit.floor?.toString() ?? ''} />
                                 </div>
 
                                 <div className="space-y-2">
                                     <Label htmlFor="bedrooms">Bedrooms</Label>
-                                    <Input id="bedrooms" name="bedrooms" type="number" required />
+                                    <Input id="bedrooms" name="bedrooms" type="number" defaultValue={unit.bedrooms.toString()} required />
                                 </div>
 
                                 <div className="space-y-2">
                                     <Label htmlFor="bathrooms">Bathrooms</Label>
-                                    <Input id="bathrooms" name="bathrooms" type="number" required />
+                                    <Input id="bathrooms" name="bathrooms" type="number" defaultValue={unit.bathrooms.toString()} required />
                                 </div>
 
                                 <div className="space-y-2">
                                     <Label htmlFor="square_feet">Square Feet</Label>
-                                    <Input id="square_feet" name="square_feet" type="number" />
+                                    <Input id="square_feet" name="square_feet" type="number" defaultValue={unit.square_feet?.toString() ?? ''} />
                                 </div>
 
                                 <div className="space-y-2">
                                     <Label htmlFor="rent_amount">Rent Amount ($)</Label>
-                                    <Input id="rent_amount" name="rent_amount" type="number" step="0.01" required />
+                                    <Input id="rent_amount" name="rent_amount" type="number" step="0.01" defaultValue={unit.rent_amount.toString()} required />
                                 </div>
 
                                 <div className="space-y-2">
                                     <Label htmlFor="security_deposit">Security Deposit ($)</Label>
-                                    <Input id="security_deposit" name="security_deposit" type="number" step="0.01" />
+                                    <Input id="security_deposit" name="security_deposit" type="number" step="0.01" defaultValue={unit.security_deposit?.toString() ?? ''} />
                                 </div>
 
                                 <div className="space-y-2 col-span-2">

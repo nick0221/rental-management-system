@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { Heading } from '@/components/heading';
+import Heading from '@/components/heading';
 
 interface PageHeaderProps {
     title: string;

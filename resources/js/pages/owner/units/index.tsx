@@ -53,7 +53,7 @@ export default function UnitsIndex({ property, units }: { property: Property; un
                 </Button>
             ),
         },
-    ] as const;
+    ];
 
     return (
         <>

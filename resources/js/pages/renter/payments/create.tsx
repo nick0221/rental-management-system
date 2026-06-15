@@ -6,15 +6,18 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { PageHeader } from '@/components/shared/page-header';
-import { store } from '@/routes/renter/payments/store';
-import { index } from '@/routes/renter/payments/index';
+import { store, index } from '@/routes/renter/payments';
 import type { Lease } from '@/types/lease';
 
+interface PageProps {
+    lease: Lease & { property: { id: number; name: string }; unit: { id: number; name: string } };
+    suggestedAmount: number;
+    [key: string]: unknown;
+}
+
 export default function CreatePayment() {
-    const { lease, suggestedAmount } = usePage().props as {
-        lease: Lease & { property: { id: number; name: string }; unit: { id: number; name: string } };
-        suggestedAmount: number;
-    };
+    const page = usePage<PageProps>();
+    const { lease, suggestedAmount } = page.props;
 
     return (
         <>

@@ -1,11 +1,10 @@
 import { Head, Link } from '@inertiajs/react';
 import { Eye, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { DataTable } from '@/components/shared/data-table';
 import { StatusBadge } from '@/components/shared/status-badge';
 import type { Lease } from '@/types/lease';
-import { index, create } from '@/routes/owner/leases/index';
+import { create } from '@/routes/owner/leases';
 
 interface PaginatedLeases {
     data: Lease[];
@@ -62,13 +61,13 @@ export default function LeasesIndex({ leases, filters }: { leases: PaginatedLeas
             className: 'w-12',
             render: (l: Lease) => (
                 <Button variant="ghost" size="icon" asChild>
-                    <Link href={index.url({ lease: l.id })}>
+                    <Link href={`/owner/leases/${l.id}`}>
                         <Eye className="h-4 w-4" />
                     </Link>
                 </Button>
             ),
         },
-    ] as const;
+    ];
 
     return (
         <>

@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { PageHeader } from '@/components/shared/page-header';
-import { update, destroy, index } from '@/routes/admin/properties';
+import { index } from '@/routes/admin/properties';
 import type { Property } from '@/types/property';
 
 export default function EditProperty({ property }: { property: Property }) {
@@ -26,24 +26,15 @@ export default function EditProperty({ property }: { property: Property }) {
 
                 <div className="max-w-lg space-y-8">
                     <Form
-                        action={update(property.id)}
+                        action={`/admin/properties/${property.id}`}
                         method="patch"
-                        defaults={{
-                            name: property.name,
-                            type: property.type,
-                            status: property.status,
-                            address: property.address,
-                            city: property.city,
-                            state: property.state,
-                            postal_code: property.postal_code,
-                            description: property.description ?? '',
-                        }}
+                        resetOnSuccess
                     >
                         {({ errors, processing }) => (
                             <div className="space-y-6">
                                 <div className="space-y-2">
                                     <Label htmlFor="name">Property Name</Label>
-                                    <Input id="name" name="name" required />
+                                    <Input id="name" name="name" defaultValue={property.name} required />
                                     {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
                                 </div>
 
@@ -75,27 +66,27 @@ export default function EditProperty({ property }: { property: Property }) {
 
                                 <div className="space-y-2">
                                     <Label htmlFor="address">Address</Label>
-                                    <Input id="address" name="address" required />
+                                    <Input id="address" name="address" defaultValue={property.address} required />
                                 </div>
 
                                 <div className="grid grid-cols-3 gap-4">
                                     <div className="space-y-2">
                                         <Label htmlFor="city">City</Label>
-                                        <Input id="city" name="city" required />
+                                        <Input id="city" name="city" defaultValue={property.city} required />
                                     </div>
                                     <div className="space-y-2">
                                         <Label htmlFor="state">State</Label>
-                                        <Input id="state" name="state" required />
+                                        <Input id="state" name="state" defaultValue={property.state} required />
                                     </div>
                                     <div className="space-y-2">
                                         <Label htmlFor="postal_code">Postal Code</Label>
-                                        <Input id="postal_code" name="postal_code" required />
+                                        <Input id="postal_code" name="postal_code" defaultValue={property.postal_code} required />
                                     </div>
                                 </div>
 
                                 <div className="space-y-2">
                                     <Label htmlFor="description">Description</Label>
-                                    <Textarea id="description" name="description" rows={4} />
+                                    <Textarea id="description" name="description" rows={4} defaultValue={property.description ?? ''} />
                                 </div>
 
                                 <Button type="submit" disabled={processing}>Update Property</Button>
@@ -105,7 +96,7 @@ export default function EditProperty({ property }: { property: Property }) {
 
                     <div className="border-t pt-6">
                         <Form
-                            action={destroy(property.id)}
+                            action={`/admin/properties/${property.id}`}
                             method="delete"
                             onSubmit={(e) => {
                                 if (!confirm('Are you sure you want to delete this property? This action cannot be undone.')) {

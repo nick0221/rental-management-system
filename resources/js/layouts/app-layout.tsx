@@ -1,15 +1,20 @@
 import AppLayoutTemplate from '@/layouts/app/app-sidebar-layout';
 import type { BreadcrumbItem } from '@/types';
+import type { NavItem } from '@/types/navigation';
+
+interface AppLayoutProps {
+    breadcrumbs?: BreadcrumbItem[];
+    children: React.ReactNode;
+    sidebarItems?: NavItem[];
+}
 
 export default function AppLayout({
     breadcrumbs = [],
     children,
-}: {
-    breadcrumbs?: BreadcrumbItem[];
-    children: React.ReactNode;
-}) {
+    sidebarItems,
+}: AppLayoutProps) {
     return (
-        <AppLayoutTemplate breadcrumbs={breadcrumbs}>
+        <AppLayoutTemplate breadcrumbs={breadcrumbs} sidebarItems={sidebarItems}>
             {children}
         </AppLayoutTemplate>
     );

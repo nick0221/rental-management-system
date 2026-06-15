@@ -6,14 +6,17 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { PageHeader } from '@/components/shared/page-header';
-import { store } from '@/routes/renter/maintenance/store';
-import { index } from '@/routes/renter/maintenance/index';
+import { store, index } from '@/routes/renter/maintenance';
 import type { Lease } from '@/types/lease';
 
+interface PageProps {
+    lease: Lease & { property: { id: number; name: string }; unit: { id: number; name: string; unit_number: string | null } };
+    [key: string]: unknown;
+}
+
 export default function CreateMaintenance() {
-    const { lease } = usePage().props as {
-        lease: Lease & { property: { id: number; name: string }; unit: { id: number; name: string; unit_number: string | null } };
-    };
+    const page = usePage<PageProps>();
+    const { lease } = page.props;
 
     return (
         <>

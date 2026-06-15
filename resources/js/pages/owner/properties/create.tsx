@@ -6,8 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { PageHeader } from '@/components/shared/page-header';
-import { store } from '@/routes/owner/properties/store';
-import { index } from '@/routes/owner/properties/index';
+import { store, index } from '@/routes/owner/properties';
 
 export default function CreateProperty() {
     return (

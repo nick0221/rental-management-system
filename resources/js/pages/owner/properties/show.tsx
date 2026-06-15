@@ -6,9 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { StatusBadge } from '@/components/shared/status-badge';
 import type { Property } from '@/types/property';
 import type { Unit } from '@/types/unit';
-import { show } from '@/routes/owner/properties/show';
-import { index as unitsIndex } from '@/routes/owner/units/index';
-import { create as unitsCreate } from '@/routes/owner/units/create';
+import { create as propertiesCreate } from '@/routes/owner/properties';
 
 interface ActiveLease {
     id: number;
@@ -35,7 +33,7 @@ export default function ShowProperty({
     activeLeases: ActiveLease[];
     pendingMaintenance: PendingMaintenance[];
 }) {
-    const unitsUrl = unitsIndex(property.id).url;
+    const unitsUrl = `/owner/properties/${property.id}/units`;
 
     return (
         <>
@@ -54,7 +52,7 @@ export default function ShowProperty({
                             <Link href={`/owner/properties/${property.id}/edit`}>Edit</Link>
                         </Button>
                         <Button asChild>
-                            <Link href={unitsCreate(property.id).url}>
+                            <Link href={`/owner/properties/${property.id}/units/create`}>
                                 <Plus className="mr-2 h-4 w-4" />Add Unit
                             </Link>
                         </Button>
@@ -78,8 +76,8 @@ export default function ShowProperty({
                     </Card>
                     <Card>
                         <CardContent className="p-4 text-center">
-                            <span className="text-2xl font-bold">{property.type.replace(/_/g, ' ')}</span>
-                            <p className="text-xs capitalize text-muted-foreground">Property Type</p>
+                            <span className="text-2xl font-bold capitalize">{property.type.replace(/_/g, ' ')}</span>
+                            <p className="text-xs text-muted-foreground">Property Type</p>
                         </CardContent>
                     </Card>
                     <Card>
@@ -101,7 +99,6 @@ export default function ShowProperty({
                 )}
 
                 <div className="grid gap-6 lg:grid-cols-2">
-                    {/* Units */}
                     <Card>
                         <CardHeader className="flex flex-row items-center justify-between">
                             <CardTitle>Units</CardTitle>
@@ -130,7 +127,6 @@ export default function ShowProperty({
                         </CardContent>
                     </Card>
 
-                    {/* Active Leases */}
                     <Card>
                         <CardHeader><CardTitle>Active Leases</CardTitle></CardHeader>
                         <CardContent>
@@ -155,7 +151,6 @@ export default function ShowProperty({
                     </Card>
                 </div>
 
-                {/* Pending Maintenance */}
                 {pendingMaintenance.length > 0 && (
                     <Card className="mt-6">
                         <CardHeader><CardTitle>Open Maintenance Requests</CardTitle></CardHeader>

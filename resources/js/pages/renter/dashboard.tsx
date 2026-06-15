@@ -5,13 +5,10 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { StatusBadge } from '@/components/shared/status-badge';
 import { CardSummary } from '@/components/shared/card-summary';
-import { EmptyState } from '@/components/shared/empty-state';
-import { dashboard } from '@/routes/renter/dashboard';
-import { show as myLease } from '@/routes/renter/lease/show';
-import { index as payments } from '@/routes/renter/payments/index';
-import { create as paymentsCreate } from '@/routes/renter/payments/create';
-import { index as maintenance } from '@/routes/renter/maintenance/index';
-import { create as maintenanceCreate } from '@/routes/renter/maintenance/create';
+import { dashboard } from '@/routes';
+import { show as myLease } from '@/routes/renter/lease';
+import { index as payments, create as paymentsCreate } from '@/routes/renter/payments';
+import { index as maintenance, create as maintenanceCreate } from '@/routes/renter/maintenance';
 import type { Lease } from '@/types/lease';
 
 export default function RenterDashboard({
@@ -62,7 +59,7 @@ export default function RenterDashboard({
                             <CardSummary
                                 title="Monthly Rent"
                                 value={`$${stats.currentMonthAmount.toLocaleString()}`}
-                                description={`Lease ends ${new Date(stats.leaseEndDate ?? '').toLocaleDateString()}`}
+                                description={`Lease ends ${stats.leaseEndDate ? new Date(stats.leaseEndDate).toLocaleDateString() : '—'}`}
                                 icon={<DollarSign className="h-5 w-5" />}
                             />
                             <CardSummary
@@ -85,7 +82,6 @@ export default function RenterDashboard({
                         </div>
 
                         <div className="grid gap-6 lg:grid-cols-2">
-                            {/* Active Lease Card */}
                             {activeLease && (
                                 <Card>
                                     <CardHeader>
@@ -124,18 +120,17 @@ export default function RenterDashboard({
                                 </Card>
                             )}
 
-                            {/* Quick Actions */}
                             <Card>
                                 <CardHeader><CardTitle>Quick Actions</CardTitle></CardHeader>
                                 <CardContent>
                                     <div className="flex flex-wrap gap-3">
                                         <Button size="sm" asChild>
-                                            <Link href={paymentsCreate()}>
+                                            <Link href={paymentsCreate().url}>
                                                 <DollarSign className="mr-2 h-4 w-4" />Pay Rent
                                             </Link>
                                         </Button>
                                         <Button size="sm" variant="outline" asChild>
-                                            <Link href={maintenanceCreate()}>
+                                            <Link href={maintenanceCreate().url}>
                                                 <Wrench className="mr-2 h-4 w-4" />Report Issue
                                             </Link>
                                         </Button>
@@ -145,12 +140,12 @@ export default function RenterDashboard({
                                             </Link>
                                         </Button>
                                         <Button size="sm" variant="ghost" asChild>
-                                            <Link href={payments()}>
+                                            <Link href={payments().url}>
                                                 Payment History
                                             </Link>
                                         </Button>
                                         <Button size="sm" variant="ghost" asChild>
-                                            <Link href={maintenance()}>
+                                            <Link href={maintenance().url}>
                                                 My Requests
                                             </Link>
                                         </Button>
@@ -159,7 +154,6 @@ export default function RenterDashboard({
                             </Card>
                         </div>
 
-                        {/* Recent Activity */}
                         <div className="mt-6 grid gap-6 lg:grid-cols-2">
                             <Card>
                                 <CardHeader>

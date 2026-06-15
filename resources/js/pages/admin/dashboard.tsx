@@ -2,7 +2,7 @@ import { Head } from '@inertiajs/react';
 import { Building2, DollarSign, Users, Wrench } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { CardSummary } from '@/components/shared/card-summary';
-import { dashboard } from '@/routes/admin/dashboard';
+import { dashboard } from '@/routes/admin';
 
 interface Stats {
     totalUsers: number;
@@ -44,7 +44,6 @@ export default function AdminDashboard({
             <div className="p-6">
                 <h1 className="mb-6 text-2xl font-bold">Admin Dashboard</h1>
 
-                {/* Stats Cards */}
                 <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     <CardSummary
                         title="Total Users"
@@ -73,7 +72,6 @@ export default function AdminDashboard({
                 </div>
 
                 <div className="grid gap-6 lg:grid-cols-2">
-                    {/* Revenue Chart */}
                     <Card>
                         <CardHeader>
                             <CardTitle>Monthly Revenue (12 months)</CardTitle>
@@ -102,7 +100,6 @@ export default function AdminDashboard({
                         </CardContent>
                     </Card>
 
-                    {/* Recent Users */}
                     <Card>
                         <CardHeader>
                             <CardTitle>Recent Users</CardTitle>

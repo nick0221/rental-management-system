@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/shared/data-table';
 import { StatusBadge } from '@/components/shared/status-badge';
 import type { Payment } from '@/types/payment';
-import { index, create } from '@/routes/renter/payments/index';
+import { index, create } from '@/routes/renter/payments';
 
 interface PaginatedPayments {
     data: Payment[];
@@ -46,7 +46,7 @@ export default function PaymentsIndex({ payments }: { payments: PaginatedPayment
             hideOnMobile: true,
             render: (p: Payment) => p.reference_number || '—',
         },
-    ] as const;
+    ];
 
     return (
         <>

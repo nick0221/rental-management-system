@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/shared/data-table';
 import { StatusBadge } from '@/components/shared/status-badge';
 import type { Property } from '@/types/property';
-import { index, create } from '@/routes/admin/properties';
+import { create } from '@/routes/admin/properties';
 
 interface PaginatedProperties {
     data: Property[];
@@ -45,7 +45,7 @@ export default function PropertiesIndex({ properties, filters }: { properties: P
             key: 'units_count',
             label: 'Units',
             className: 'text-center',
-            render: (p: Property) => p.units_count ?? '—',
+            render: (p: Property & { units_count?: number }) => p.units_count ?? '—',
         },
         {
             key: 'actions',
@@ -53,13 +53,13 @@ export default function PropertiesIndex({ properties, filters }: { properties: P
             className: 'w-12',
             render: (p: Property) => (
                 <Button variant="ghost" size="icon" asChild>
-                    <Link href={index.url({ property: p.id })}>
+                    <Link href={`/admin/properties/${p.id}/edit`}>
                         <Pencil className="h-4 w-4" />
                     </Link>
                 </Button>
             ),
         },
-    ] as const;
+    ];
 
     return (
         <>
