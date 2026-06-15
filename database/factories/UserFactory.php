@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
@@ -33,6 +34,9 @@ class UserFactory extends Factory
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
             'two_factor_confirmed_at' => null,
+            'role' => UserRole::Renter->value,
+            'phone' => fake()->optional(0.7)->phoneNumber(),
+            'avatar' => null,
         ];
     }
 
@@ -56,5 +60,39 @@ class UserFactory extends Factory
             'two_factor_recovery_codes' => encrypt(json_encode(['recovery-code-1'])),
             'two_factor_confirmed_at' => now(),
         ]);
+    }
+
+    /**
+     * Set the user's role.
+     */
+    public function withRole(UserRole $role): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => $role->value,
+        ]);
+    }
+
+    /**
+     * Indicate that the user is a super admin.
+     */
+    public function superAdmin(): static
+    {
+        return $this->withRole(UserRole::SuperAdmin);
+    }
+
+    /**
+     * Indicate that the user is an owner.
+     */
+    public function owner(): static
+    {
+        return $this->withRole(UserRole::Owner);
+    }
+
+    /**
+     * Indicate that the user is a renter.
+     */
+    public function renter(): static
+    {
+        return $this->withRole(UserRole::Renter);
     }
 }
